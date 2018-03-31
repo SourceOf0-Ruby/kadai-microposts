@@ -1,5 +1,16 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to Microposts</h1>
-  </div> 
-</div>
+
+<% if logged_in? %>
+  
+  <p>ログイン完了ユーザ : <%= get_current_user.name %></p>
+  
+<% else %>
+  
+  <%# MEMO:jumbotron: 見出しになるようなデカい要素 %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Welcome to Microposts</h1>
+      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div> 
+  </div>
+  
+<% end %>
