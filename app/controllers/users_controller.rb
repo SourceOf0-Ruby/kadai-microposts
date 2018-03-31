@@ -19,8 +19,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params);
     
     if @user.save
+      # ユーザ作成と同時にログイン状態にする
+      session[:user_id] = @user.id;
+      
       flash[:success] = 'ユーザを登録しました。';
-      #session[:user_id] = @user.id;
       redirect_to @user;
     else
       flash.now[:danger] = 'ユーザの登録に失敗しました。';
