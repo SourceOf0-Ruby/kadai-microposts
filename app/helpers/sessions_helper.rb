@@ -1,7 +1,7 @@
 module SessionsHelper
   
   # ログイン済みのユーザモデルインスタンスを@current_userにセットする
-  def get_current_user
+  def current_user
     # @current_userがnilでない場合はDBから取得する
     # MEMO: find   は見つからなかったときエラーを投げる
     #       find_byは見つからなかったときnilを返す
@@ -10,7 +10,7 @@ module SessionsHelper
   
   # ログイン済みであればtrueを返す
   def logged_in?
-    return !!get_current_user;
+    return !!current_user;
   end
   
 end
