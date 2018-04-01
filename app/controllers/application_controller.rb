@@ -9,10 +9,16 @@ class ApplicationController < ActionController::Base
   private
   
   # ログインしていない場合はログインページにリダイレクトする
-  def require_user_loggen_in
+  def require_user_logged_in
     unless logged_in?
       redirect_to login_url;
     end
+  end
+  
+  # 投稿総数を@count_micropostsにセットする
+  # @param user: 対象のユーザ
+  def count_microposts(user)
+    @count_microposts = user.microposts.count;
   end
   
 end

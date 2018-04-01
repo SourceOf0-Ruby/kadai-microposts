@@ -1,9 +1,29 @@
 
 <% if logged_in? %>
+  <%# ログイン中 %>
   
-  <p>ログイン完了ユーザ : <%= current_user.name %></p>
+  <div class="row">
+    <aside class="col-md-4">
+      <%# 新規投稿フォーム %>
+      <%= form_for(@micropost) do |f| %>
+        <%# エラーメッセージをレンダリング %>
+        <%# MEMO:f.objectには対象のモデルオブジェクト（@user）が入ってる %>
+        <%= render 'layouts/error_messages', model: f.object %>
+        <div class="form-group">
+          <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+    
+    <div class="col-md-8">
+      <%# 投稿一覧 %>
+      <%= render 'microposts/microposts', microposts: @microposts %>
+    </div>
+  </div>
   
 <% else %>
+  <%# 未ログイン %>
   
   <%# MEMO:jumbotron: 見出しになるようなデカい要素 %>
   <div class="center jumbotron">
