@@ -1,0 +1,30 @@
+
+<div class="row">
+  <aside class="col-md-4">
+    <%# 新規投稿フォーム %>
+    <%= form_for(@micropost) do |f| %>
+      <%# エラーメッセージをレンダリング %>
+      <%# MEMO:f.objectには対象のモデルオブジェクト（@user）が入ってる %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      <div class="form-group">
+        <%= f.text_area :content, class: 'form-control', rows: 5 %>
+      </div>
+      <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+    <% end %>
+  </aside>
+  
+  <div class="col-md-8">
+    
+    <ul class="nav nav-tabs nav-justified">
+      <li class="<%= 'active' if current_page?(root_path) %>">
+        <%= link_to 'Feeds', root_path %>
+      </li>
+      <li class="<%= 'active' if current_page?(favoritings_path) %>">
+        <%= link_to 'Favorite posts', favoritings_path %>
+      </li>
+    </ul>
+    
+    <%# お気に入り一覧 %>
+    <%= render 'microposts/microposts', microposts: @favoritings %>
+  </div>
+</div>

@@ -10,17 +10,31 @@ class User < ApplicationRecord
   
   has_secure_password;
   
+  
   has_many :microposts;
   
+  has_many :favorites, dependent: :destroy;
+  has_many :favoritings, through: :favorites, source: :micropost;
+  
+  # お気に入りにしているか確認する
+  # @param micropost: 対象のmicropost
+  # @return: お気に入りにしていればtrue
+  def favoriting?(micropost)
+    return self.favoritings.include?(micropost);
+  end
+  
+  
+  # フォローしているユーザ
   # relationships（Relationshipモデル群内のuser）を経由してfollowを取得するfollowingsを定義
   has_many :relationships;
   has_many :followings, through: :relationships, source: :follow;
   
+  # フォローしてきているユーザ
   # reverses_of_relationship（Relationshipモデル群内のfollow）を経由してuserを取得するfollowersを定義
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id';
   has_many :followers, through: :reverses_of_relationship, source: :user;
   
-  
+
   # フォローする
   # @param other_user: 対象のユーザ
   def follow(other_user)
@@ -42,6 +56,7 @@ class User < ApplicationRecord
   def following?(other_user)
     return self.followings.include?(other_user);
   end
+  
   
   # ユーザ自身とユーザがフォローしているユーザの投稿を取得する
   # @return: 該当する投稿群

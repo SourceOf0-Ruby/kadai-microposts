@@ -17,6 +17,16 @@
     </aside>
     
     <div class="col-md-8">
+      
+      <ul class="nav nav-tabs nav-justified">
+        <li class="<%= 'active' if current_page?(root_path) %>">
+          <%= link_to 'Feeds', root_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(favoritings_path) %>">
+          <%= link_to 'Favorite posts', favoritings_path %>
+        </li>
+      </ul>
+      
       <%# 投稿一覧 %>
       <%= render 'microposts/microposts', microposts: @microposts %>
     </div>
