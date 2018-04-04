@@ -43,4 +43,10 @@ class User < ApplicationRecord
     return self.followings.include?(other_user);
   end
   
+  # ユーザ自身とユーザがフォローしているユーザの投稿を取得する
+  # @return: 該当する投稿群
+  def feed_microposts
+    return Micropost.where(user_id: self.following_ids + [self.id]);
+  end
+  
 end
