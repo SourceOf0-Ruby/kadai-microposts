@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   
   # ログイン時のみ表示するページを指定
-  before_action :require_user_logged_in, only: [:index, :show];
+  before_action :require_user_logged_in, only: [:index, :show, :followings, :followers];
   
   def index
     @users = User.all.page(params[:page]);
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id]);
     @microposts = @user.microposts.order('created_at DESC').page(params[:page]);
-    count_microposts(@user);
+    counts(@user);
   end
 
   def new
@@ -31,6 +31,20 @@ class UsersController < ApplicationController
       render :new;
     end
   end
+  
+  
+  def followings
+    @user = User.find(params[:id]);
+    @followings = @user.followings.page(params[:page]);
+    counts(@user);
+  end
+  
+  def followers
+    @user = User.find(params[:id]);
+    @followers = @user.followers.page(params[:page]);
+    counts(@user);
+  end
+
   
   private
   # 以下privateメンバ

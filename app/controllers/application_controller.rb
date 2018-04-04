@@ -15,10 +15,12 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # 投稿総数を@count_micropostsにセットする
+  # 各種総数をセットする
   # @param user: 対象のユーザ
-  def count_microposts(user)
+  def counts(user)
     @count_microposts = user.microposts.count;
+    @count_followings = user.followings.count;
+    @count_followers  = user.followers.count;
   end
   
 end
