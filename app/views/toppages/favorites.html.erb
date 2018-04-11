@@ -19,12 +19,12 @@
       <li class="<%= 'active' if current_page?(root_path) %>">
         <%= link_to 'Feeds', root_path %>
       </li>
-      <li class="<%= 'active' if current_page?(favoritings_path) %>">
-        <%= link_to 'Favorite posts', favoritings_path %>
+      <li class="<%= 'active' if current_page?(favorites_path) %>">
+        <%= link_to 'Favorite posts', favorites_path %>
       </li>
     </ul>
     
     <%# お気に入り一覧 %>
-    <%= render 'microposts/microposts', microposts: @favoritings %>
+    <%= render 'microposts/microposts', microposts: @favorites %>
   </div>
 </div>

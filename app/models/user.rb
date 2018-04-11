@@ -14,13 +14,26 @@ class User < ApplicationRecord
   has_many :microposts;
   
   has_many :favorites, dependent: :destroy;
-  has_many :favoritings, through: :favorites, source: :micropost;
+  has_many :favorite_microposts, through: :favorites, source: :micropost;
+  
+  # お気に入りにする
+  # @param micropost: 対象の投稿
+  def favorite(micropost)
+    self.favorites.find_or_create_by(micropost_id: micropost.id);
+  end
+  
+  # お気に入りを外す
+  # @param micropost: 対象の投稿
+  def unfavorite(micropost)
+    favorite = self.favorites.find_by(micropost_id: micropost.id);
+    favorite.destroy if favorite;
+  end
   
   # お気に入りにしているか確認する
   # @param micropost: 対象のmicropost
   # @return: お気に入りにしていればtrue
-  def favoriting?(micropost)
-    return self.favoritings.include?(micropost);
+  def favorite?(micropost)
+    return self.favorite_microposts.include?(micropost);
   end
   
   

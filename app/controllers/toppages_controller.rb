@@ -1,7 +1,7 @@
 class ToppagesController < ApplicationController
 
   # ログイン時のみ表示するページを指定
-  before_action :require_user_logged_in, only: [:favoritings];
+  before_action :require_user_logged_in, only: [:favorites];
 
   def index
     if logged_in?
@@ -15,11 +15,11 @@ class ToppagesController < ApplicationController
     end
   end
   
-  def favoritings
+  def favorites
     @user = current_user;
     
     # ログイン中のユーザのお気に入り投稿一覧を表示する
-    @favoritings = @user.favoritings.page(params[:page]);
+    @favorites = @user.favorite_microposts.page(params[:page]);
     
     # 新規投稿用
     @micropost = @user.microposts.build;

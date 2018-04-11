@@ -1,0 +1,10 @@
+<%# 対象の記事をお気に入りから外すリンクを作る %>
+<%# @params micropost: 対象の記事 %>
+
+<%#
+    MEMO: Ajaxでのリンクを使用するためにremote: trueを使用
+    参考: https://railsguides.jp/working_with_javascript_in_rails.html
+%>
+<%= link_to micropost_favorites_path(micropost), method: :delete, remote: true, class: 'btn btn-danger btn-xs' do %>
+  <span class="glyphicon glyphicon-heart"></span>
+<% end %>

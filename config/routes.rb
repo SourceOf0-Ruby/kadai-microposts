@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   # トップページ
   root to: 'toppages#index';
 
-  # /favoritings へのアクセスでお気に入り一覧を表示するようにする
-  get 'favoritings', to: 'toppages#favoritings';
+  # /favorites へのアクセスでお気に入り一覧を表示するようにする
+  get 'favorites', to: 'toppages#favorites';
   
   
   # ログイン周り
@@ -31,12 +31,12 @@ Rails.application.routes.draw do
 
 
   # 投稿周り
-  resources :microposts, only: [:create, :destroy];
-
+  resources :microposts, only: [:create, :destroy] do
+    # お気に入り周り
+    resource :favorites, only: [:create, :destroy];
+  end
+  
   # フォロー周り
   resources :relationships, only: [:create, :destroy];
-  
-  # お気に入り周り
-  resources :favorites, only: [:create, :destroy];
   
 end

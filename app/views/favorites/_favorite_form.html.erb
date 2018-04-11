@@ -1,0 +1,14 @@
+<%#
+  お気に入りにする・しないボタンを表示
+  @param :micropost
+%>
+
+<span id="favorite_form-<%= micropost.id %>">
+  <% if current_user.favorite?(micropost) %>
+    <%# お気に入り中 %>
+    <%= render "favorites/unfavorite", micropost: micropost %>
+  <% else %>
+    <%# お気に入りしてない %>
+    <%= render "favorites/favorite", micropost: micropost %>
+  <% end %>
+</span>
